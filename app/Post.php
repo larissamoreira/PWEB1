@@ -8,4 +8,8 @@ class Post extends Model
 {
     // Table name
     protected $table = 'posts';
+
+    public function themes() {
+        return $this->belongsToMany('App\Theme');
+    }
 }
