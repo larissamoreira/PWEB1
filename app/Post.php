@@ -9,8 +9,8 @@ class Post extends Model
     // Table name
     protected $table = 'posts';
 
-    public function themes() {
-        return $this->belongsToMany('App\Theme');
+    public function theme() {
+        return $this->belongsTo('App\Theme');
     }
 
     public function comments() {

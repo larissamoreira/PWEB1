@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use App\Theme;
 
 class PostsController extends Controller
 {
@@ -26,7 +27,8 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        $themes = Theme::all();
+        return view('posts.create')->with('themes', $themes);
     }
 
     /**
@@ -82,7 +84,17 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required',
+            'text' => 'required'
+        ]);
+    
+        $post = Post::find($id);
+        $post->title = $request->input('title');
+        $post->text = $request->input('text');
+        $post->save();
+
+        return redirect('posts');
     }
 
     /**
@@ -93,6 +105,9 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::find($id);
+        $post->delete();
+
+        return redirect('posts');
     }
 }

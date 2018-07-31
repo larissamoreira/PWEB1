@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Create post</h1>
-    {!! Form::open(['action' => 'PostsController@store', 'method' => 'POST']) !!}
+    <h1>Edit post</h1>
+    {!! Form::open(['action' => ['PostsController@update', $post->id], 'method' => 'POST']) !!}
         <div class="form-group">
             {{Form::label('title', 'Title')}}
-            {{Form::text('title', '', ['class' => 'form-control', ])}}
+            {{Form::text('title', $post->title, ['class' => 'form-control', ])}}
         </div>
         <div class="form-group">
             {{Form::label('themes', 'Themes')}}
@@ -20,8 +20,9 @@
         </div>
         <div class="form-group">
             {{Form::label('text', 'Text')}}
-            {{Form::textarea('text', '', ['class' => 'form-control'])}}
+            {{Form::textarea('text', $post->text, ['class' => 'form-control'])}}
         </div>
+        {{Form::hidden('_method', 'PUT')}}
         {{Form::submit('Submit', ['class' => 'btn btn-primary'])}}
     {!! Form::close() !!}
 @endsection
